@@ -2,6 +2,9 @@
 author:sanxian
 time:2023/10/5
 */
+#ifndef gurd_cpu
+#define gurd_cpu
+
 #include<stdlib.h>
 #include<stdint.h>
 
@@ -23,6 +26,7 @@ typedef struct
     
     uint64_t rbx;
     uint64_t rcx;
+    uint64_t rdx;
     uint64_t rsi;
     uint64_t rdi;
     uint64_t rbp;
@@ -30,3 +34,8 @@ typedef struct
     uint64_t rip;
 
 }cpu_reg_t;
+
+cpu_reg_t cpu;
+
+
+#endif
