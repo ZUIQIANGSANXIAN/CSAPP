@@ -15,3 +15,36 @@
 0x0000555555555170 <+42>:	call   0x555555555129 <add>
 0x0000555555555175 <+47>:	mov    %rax,-0x8(%rbp)
 0x0000555555555179 <+51>:	mov    $0x0,%eax
+
+
+// 最初寄存器状态
+rax            0x12340000          305397760
+rbx            0x0                 0
+rcx            0x555555557df8      93824992247288
+rdx            0xabcd              43981
+rsi            0x7fffffffe588      140737488348552
+rdi            0x1                 1
+rbp            0x7fffffffe470      0x7fffffffe470
+rsp            0x7fffffffe450      0x7fffffffe450
+
+0x7fffffffe450:	0x00000000	0x00000000	0x12340000	0x00000000
+0x7fffffffe460:	0x0000abcd	0x00000000	0x00000000	0x00000000
+0x7fffffffe470:	0x00000001	0x00000000	0xf7c29d90	0x00007fff
+
+// 最终寄存器状态
+rax            0x1234abcd          305441741
+rbx            0x0                 0
+rcx            0x555555557df8      93824992247288
+rdx            0x12340000          305397760
+rsi            0xabcd              43981
+rdi            0x12340000          305397760
+rbp            0x7fffffffe470      0x7fffffffe470
+rsp            0x7fffffffe450      0x7fffffffe450
+
+
+0x7fffffffe450:	0x00000000	0x00000000	0x12340000	0x00000000
+0x7fffffffe460:	0x0000abcd	0x00000000	0x1234abcd	0x00000000
+0x7fffffffe470:	0x00000001	0x00000000	0xf7c29d90	0x00007fff
+
+
+

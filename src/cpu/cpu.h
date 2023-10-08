@@ -34,8 +34,7 @@ typedef struct
     uint64_t rip;
 
 }cpu_reg_t;
-
-cpu_reg_t cpu;
+extern cpu_reg_t cpu;
 
 
 #endif

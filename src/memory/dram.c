@@ -1,7 +1,9 @@
-#include"memory/dram.h"
-#include"cpu/mmu.h"
-#include"cpu/cpu.h"
+#include"../memory/dram.h"
+#include"../cpu/mmu.h"
+#include"../cpu/cpu.h"
 #include<stdio.h>
+
+uint8_t MM[MM_LEN];
 
 #define SRAM_CACHE_SETTING 0
 uint64_t read64bits(uint64_t paddr)
@@ -31,7 +33,7 @@ void print_register()
             
     printf("rsi= %16lx\trdi= %16lx\trbp= %16lx\trsp= %16lx\n",
             cpu.rsi,cpu.rdi,cpu.rbp,cpu.rsp);
-    printf("rip= \n",cpu.rsi);
+    printf("rip= %16lx\n",cpu.rip);
 }
 
 void print_stack()
@@ -51,7 +53,7 @@ void print_stack()
         
         if(i==n)
         {
-            printf("<=rsp");
+            printf("<==rsp");
         }
 
         rsp_start=rsp_start-8;

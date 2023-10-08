@@ -1,0 +1,13 @@
+/usr/bin/ld: /tmp/ccmZ8bA1.o:
+/home/sanxian/github/CSAPP/./src/memory/../memory/dram.h:14: multiple definition of `MM';
+ /tmp/cccxoXt8.o:/home/sanxian/github/CSAPP/./src/memory/../cpu/../memory/dram.h:14: first defined here
+/usr/bin/ld: /tmp/ccmZ8bA1.o:/home/sanxian/github/CSAPP/./src/memory/../cpu/cpu.h:38: multiple definition of `cpu'; /tmp/cccxoXt8.o:/home/sanxian/github/CSAPP/./src/memory/../cpu/cpu.h:38: first defined here
+/usr/bin/ld: /tmp/cc4csuy3.o:/home/sanxian/github/CSAPP/./src/disk/../cpu/cpu.h:38: multiple definition of `cpu'; /tmp/cccxoXt8.o:/home/sanxian/github/CSAPP/./src/memory/../cpu/cpu.h:38: first defined here
+/usr/bin/ld: /tmp/cc4csuy3.o:/home/sanxian/github/CSAPP/./src/disk/../disk/../memory/instruction.h:77: multiple definition of `handler_table'; /tmp/cccxoXt8.o:/home/sanxian/github/CSAPP/./src/memory/../memory/instruction.h:77: first defined here
+/usr/bin/ld: /tmp/ccz8Bqod.o:/home/sanxian/github/CSAPP/./src/cpu/../cpu/../memory/dram.h:14: multiple definition of `MM'; /tmp/cccxoXt8.o:/home/sanxian/github/CSAPP/./src/memory/../cpu/../memory/dram.h:14: first defined here
+/usr/bin/ld: /tmp/ccL6bFMg.o:/home/sanxian/github/CSAPP/./src/./cpu/cpu.h:38: multiple definition of `cpu'; /tmp/cccxoXt8.o:/home/sanxian/github/CSAPP/./src/memory/../cpu/cpu.h:38: first defined here
+/usr/bin/ld: /tmp/ccL6bFMg.o:/home/sanxian/github/CSAPP/./src/./disk/elf.h:19: multiple definition of `pragma'; /tmp/cc4csuy3.o:/home/sanxian/github/CSAPP/./src/disk/../disk/elf.h:19: first defined here
+/usr/bin/ld: /tmp/ccL6bFMg.o:/home/sanxian/github/CSAPP/./src/./memory/instruction.h:77: multiple definition of `handler_table'; /tmp/cccxoXt8.o:/home/sanxian/github/CSAPP/./src/memory/../memory/instruction.h:77: first defined here
+/usr/bin/ld: /tmp/ccL6bFMg.o:/home/sanxian/github/CSAPP/./src/./cpu/../memory/dram.h:14: multiple definition of `MM'; /tmp/cccxoXt8.o:/home/sanxian/github/CSAPP/./src/memory/../cpu/../memory/dram.h:14: first defined here
+collect2: error: ld returned 1 exit status
+make: *** [Makefile:11：main] 错误 1

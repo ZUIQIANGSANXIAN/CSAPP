@@ -1,9 +1,11 @@
-#include"memory/instruction.h"
-#include"cpu/cpu.h"
-#include"cpu/mmu.h"
-#include"memory/dram.h"
+#include"../memory/instruction.h"
+#include"../cpu/cpu.h"
+#include"../cpu/mmu.h"
+#include"../memory/dram.h"
 
-static uint64_t decode_od(od_t od)
+handler_t handler_table[NUM_OPTYPE];
+
+uint64_t decode_od(od_t od)
 {
     if(od.type==IMM)
     {
@@ -11,7 +13,7 @@ static uint64_t decode_od(od_t od)
     }
     else if(od.type==REG)
     {
-        return (uint64_t)*od.reg1;
+        return (uint64_t)od.reg1;       // 为什么不返回值
     }
     else
     {
@@ -56,12 +58,32 @@ static uint64_t decode_od(od_t od)
     return 0x0;
 }
 
-
-
-void init_handler_tbale();
 void mov_reg_reg_handler(uint64_t src,uint64_t dst)
 {
     *(uint64_t *)dst=*(uint64_t *)src;
+    cpu.rip=cpu.rip+sizeof(ins_t);
+}
+void mov_reg_mem_handler(uint64_t src,uint64_t dst)
+{
+    write64bits(va2pa(dst),*(uint64_t *)src);
+    cpu.rip=cpu.rip+sizeof(ins_t);
+}
+void mov_mem_reg_handler(uint64_t src,uint64_t dst)
+{
+    uint64_t tmp=read64bits(va2pa(src));
+    *(uint64_t*)dst=tmp;
+    cpu.rip=cpu.rip+sizeof(ins_t);
+}
+void push_reg_handler(uint64_t src,uint64_t dst)
+{
+    cpu.rsp=cpu.rsp-8;
+    write64bits(va2pa(cpu.rsp),*(uint64_t*)src);
+    cpu.rip=cpu.rip+sizeof(ins_t);
+}
+void pop_reg_handler(uint64_t src,uint64_t dst)
+{
+    *(uint64_t*)src=read64bits(va2pa(cpu.rsp));
+    cpu.rsp=cpu.rsp+8;
     cpu.rip=cpu.rip+sizeof(ins_t);
 }
 void add_reg_reg_handler(uint64_t src,uint64_t dst)
@@ -71,7 +93,57 @@ void add_reg_reg_handler(uint64_t src,uint64_t dst)
 }
 void call_handler(uint64_t src,uint64_t dst)
 {
+    //rsp下移
+    cpu.rsp=cpu.rsp-8;
+    //保存返回地址
+    write64bits(va2pa(cpu.rsp),cpu.rip+sizeof(ins_t));
+    // 跳转
+    cpu.rip=src;
+}
+void ret_handler(uint64_t src,uint64_t dst)
+{
+    //保存返回地址
+    cpu.rip=read64bits(va2pa(cpu.rsp));
+     //rsp上移
+    cpu.rsp=cpu.rsp+8;
+}
+
+void init_handler_tbale()
+{
+    handler_table[mov_reg_reg]=&mov_reg_reg_handler;
+    handler_table[mov_reg_mem]=&mov_reg_mem_handler;
+    handler_table[mov_mem_reg]=&mov_mem_reg_handler;
+    handler_table[push_reg]=&push_reg_handler;
+    handler_table[pop_reg]=&pop_reg_handler;
+    handler_table[call]=&call_handler;
+    handler_table[ret]=&ret_handler;
+    handler_table[add_reg_reg]=&add_reg_reg_handler;
     
+}
+
+void instruction_cycle()
+{
+    ins_t *ins=(ins_t *)cpu.rip;
+
+
+    // operand
+    /*
+    imm:imm
+    reg:value
+    mm:paddr
+    */
+    uint64_t src=decode_od(ins->src);
+    uint64_t dst=decode_od(ins->dst);
+
+    // operator
+    handler_t handle=handler_table[ins->op];
+
+    //run
+    handle(src,dst);
+
+    printf("   %s\n",ins->code);
+
+    return;
 }
 
 
