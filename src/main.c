@@ -48,8 +48,8 @@ int main()
     match=match&&(cpu.rbx== 0x0 );
     match=match&&(cpu.rcx== 0x555555557df8);
     match=match&&(cpu.rdx== 0x12340000);
-    match=match&&(cpu.rdi== 0xabcd  );
-    match=match&&(cpu.rsi== 0x12340000);
+    match=match&&(cpu.rdi== 0x12340000  );
+    match=match&&(cpu.rsi== 0xabcd );
     match=match&&(cpu.rbp== 0x7fffffffe470);
     match=match&&(cpu.rsp== 0x7fffffffe450);
 
